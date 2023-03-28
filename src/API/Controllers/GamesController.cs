@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.Models;
-using Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,22 +7,22 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class GamesController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IGameService _gameService;
 
-        public UsersController(IUserService userService)
+        public GamesController(IGameService gameService)
         {
-            _userService = userService;
+            _gameService = gameService;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-            var users = await _userService.GetAll();
+            var games = await _gameService.GetAll();
 
-            return Ok(users);
+            return Ok(games);
         }
 
         [HttpGet("{id:int}")]
@@ -32,41 +30,41 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = await _userService.GetById(id);
+            var game = await _gameService.GetById(id);
 
-            if (user == null) return NotFound();
+            if (game == null) return NotFound();
 
-            return Ok(user);
+            return Ok(game);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Add(User user)
+        public IActionResult Add(Game game)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var userResult = _userService.Add(user);
+            var gameResult = _gameService.Add(game);
 
-            if (userResult == null) return BadRequest();
+            if (gameResult == null) return BadRequest();
 
-            return Ok($"User {user.Email} inserted");
+            return Ok($"Game {game.QuizzNameValue} inserted");
         }
 
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update(int id, User user)
+        public async Task<IActionResult> Update(int id, Game game)
         {
-            if (id != user.Id) return BadRequest();
+            if (id != game.Id) return BadRequest();
 
             if (!ModelState.IsValid) return BadRequest();
 
-            bool result = await _userService.Update(user);
+            bool result = await _gameService.Update(game);
 
             if (result)
             {
-                return Ok($"User {id} updated.");
+                return Ok($"Game {id} updated.");
             }
 
             return BadRequest();
@@ -77,14 +75,14 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Remove(int id)
         {
-            var user = await _userService.GetById(id);
-            if (user == null) return NotFound();
+            var game = await _gameService.GetById(id);
+            if (game == null) return NotFound();
 
-            var result = await _userService.Remove(user);
+            var result = await _gameService.Remove(game);
 
             if (!result) return BadRequest();
 
-            return Ok($"User {id} removed");
+            return Ok($"Game {id} removed");
         }
     }
 }
