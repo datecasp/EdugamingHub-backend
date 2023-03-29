@@ -3,6 +3,7 @@ using Infrastructure.Context;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Domain.Services;
+using API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +14,14 @@ var connectionString = builder.Configuration.GetConnectionString(CONNSTRING);
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddJwtTokenServices(builder.Configuration);
+
 builder.Services.AddControllers();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGameService, GameService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
