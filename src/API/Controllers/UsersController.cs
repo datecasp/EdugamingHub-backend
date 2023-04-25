@@ -47,7 +47,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Add(User user)
@@ -58,7 +58,7 @@ namespace API.Controllers
 
             if (userResult == null) return BadRequest();
 
-            return Ok($"User {user.Email} inserted");
+            return Ok(userResult);
         }
 
         [HttpPut("{id:int}")]

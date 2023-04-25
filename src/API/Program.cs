@@ -20,8 +20,10 @@ builder.Services.AddJwtTokenServices(builder.Configuration);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserGameRepository, UserGameRepository>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserGameService, UserGameService>();
 builder.Services.AddScoped<IGameService, GameService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

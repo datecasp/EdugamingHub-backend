@@ -36,7 +36,7 @@ namespace Domain.Services
 
                     Token = JwtHelpers.GenTokenKey(new UserTokens()
                     {
-                        UserName = searchUser.Name,
+                        UserName = searchUser.Name + " " + searchUser.Surname,
                         EmailId = searchUser.Email,
                         Id = searchUser.Id,
                         GuidId = Guid.NewGuid(),
