@@ -25,13 +25,13 @@ namespace API.Controllers
             return Ok(userGameBadges);
         }
 
-        [HttpGet("{userId:int}")]
+        [HttpGet("{id:int}")]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetByUserId(int userGameBadgeId)
+        public async Task<IActionResult> GetByUserId(int id)
         {
-            var userGameBadges = await _userGameBadgeService.GetById(userGameBadgeId);
+            var userGameBadges = await _userGameBadgeService.GetById(id);
 
             if (userGameBadges == null) return NotFound();
 
