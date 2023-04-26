@@ -27,6 +27,11 @@ namespace Domain.Services
             return await _userGameBadgeRepository.GetById(id);
         }
 
+        public IEnumerable<UserGameBadge> GetByUserGameId(int id)
+        {
+            return _userGameBadgeRepository.GetByUserGameId(id);
+        }
+
         public UserGameBadge Add(UserGameBadge UserGameBadge)
         {
             _userGameBadgeRepository.Add(UserGameBadge);

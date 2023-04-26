@@ -9,5 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IUserGameBadgeRepository : IRepository<UserGameBadge>
     {
+        IEnumerable<UserGameBadge> GetByUserGameId(int id);
     }
 }

@@ -38,6 +38,19 @@ namespace API.Controllers
             return Ok(userGameBadges);
         }
 
+        [HttpGet("badges/{id:int}")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByUserGameId(int id)
+        {
+            var userGameBadges = _userGameBadgeService.GetByUserGameId(id);
+
+            if (userGameBadges == null) return NotFound();
+
+            return Ok(userGameBadges);
+        }
+
         [HttpPost]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
